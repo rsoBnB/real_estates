@@ -1,4 +1,4 @@
-package si.fri.rso.rsobnb.users.services.producers;
+package si.fri.rso.rsobnb.real_estates.services.producers;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Disposes;
@@ -9,7 +9,7 @@ import javax.persistence.PersistenceUnit;
 
 public class PersistenceProducer {
 
-    @PersistenceUnit(unitName = "users-jpa")
+    @PersistenceUnit(unitName = "real_estates-jpa")
     private EntityManagerFactory emf;
 
     @Produces

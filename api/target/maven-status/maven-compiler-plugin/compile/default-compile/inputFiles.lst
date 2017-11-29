@@ -1,6 +1,6 @@
-/Users/greg/rsobnb/users/api/src/main/java/si/fri/rso/rsobnb/users/api/dtos/ApiError.java
-/Users/greg/rsobnb/users/api/src/main/java/si/fri/rso/rsobnb/users/api/exceptionmappers/NotFoundExceptionMapper.java
-/Users/greg/rsobnb/users/api/src/main/java/si/fri/rso/rsobnb/users/api/producers/JacksonProducer.java
-/Users/greg/rsobnb/users/api/src/main/java/si/fri/rso/rsobnb/users/api/resources/UsersResource.java
-/Users/greg/rsobnb/users/api/src/main/java/si/fri/rso/rsobnb/users/api/interceptors/LogContextInterceptor.java
-/Users/greg/rsobnb/users/api/src/main/java/si/fri/rso/rsobnb/users/api/UsersApplication.java
+/Users/jernejkozelj/FAKS/2.letnik/1.semester/RSO/real_estates/api/src/main/java/si/fri/rso/rsobnb/real_estates/api/exceptionmappers/NotFoundExceptionMapper.java
+/Users/jernejkozelj/FAKS/2.letnik/1.semester/RSO/real_estates/api/src/main/java/si/fri/rso/rsobnb/real_estates/api/producers/JacksonProducer.java
+/Users/jernejkozelj/FAKS/2.letnik/1.semester/RSO/real_estates/api/src/main/java/si/fri/rso/rsobnb/real_estates/api/dtos/ApiError.java
+/Users/jernejkozelj/FAKS/2.letnik/1.semester/RSO/real_estates/api/src/main/java/si/fri/rso/rsobnb/real_estates/api/resources/RealEstatesResource.java
+/Users/jernejkozelj/FAKS/2.letnik/1.semester/RSO/real_estates/api/src/main/java/si/fri/rso/rsobnb/real_estates/api/RealEstateApplication.java
+/Users/jernejkozelj/FAKS/2.letnik/1.semester/RSO/real_estates/api/src/main/java/si/fri/rso/rsobnb/real_estates/api/interceptors/LogContextInterceptor.java

@@ -1,4 +1,4 @@
-package si.fri.rso.rsobnb.users.services;
+package si.fri.rso.rsobnb.real_estates.services;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
@@ -9,84 +9,84 @@ import javax.persistence.EntityManager;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
-import si.fri.rso.rsobnb.users.User;
+
+import si.fri.rso.rsobnb.real_estates.RealEstate;
 
 @ApplicationScoped
-public class UsersBean {
+public class RealEstatesBean {
 
     @Inject
     private EntityManager em;
 
-    public List<User> getUsers(UriInfo uriInfo) {
+    public List<RealEstate> getRealEstates(UriInfo uriInfo) {
 
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery())
                 .defaultOffset(0)
                 .build();
 
-        return JPAUtils.queryEntities(em, User.class, queryParameters);
+        return JPAUtils.queryEntities(em, RealEstate.class, queryParameters);
 
     }
 
-    public List<User> getUsersFilter(UriInfo uriInfo) {
+    public List<RealEstate> getRealEstateFilter(UriInfo uriInfo) {
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0).build();
-        return JPAUtils.queryEntities(em, User.class, queryParameters);
+        return JPAUtils.queryEntities(em, RealEstate.class, queryParameters);
     }
 
-    public User getUser(String userId) {
+    public RealEstate getRealEstate(String realEstateId) {
 
 
-        User user = em.find(User.class, userId);
+        RealEstate realEstate = em.find(RealEstate.class, realEstateId);
 
-        if (user == null) {
+        if (realEstate == null) {
             throw new NotFoundException();
         }
 
-        return user;
+        return realEstate;
     }
 
 
-
-    public User createdUser(User user) {
+    public RealEstate createdRealEstate(RealEstate realEstate) {
 
         try {
             beginTx();
-            em.persist(user);
+            em.persist(realEstate);
             commitTx();
         } catch (Exception e) {
             rollbackTx();
         }
 
-        return user;
+        return realEstate;
     }
 
-    public User putUser(String userId, User user) {
+    public RealEstate putRealEstate(String realEstateId, RealEstate realEstate) {
 
-        User u = em.find(User.class, userId);
+        RealEstate r = em.find(RealEstate.class, realEstateId);
 
-        if (u == null) {
+        if (r == null) {
             return null;
         }
 
         try {
             beginTx();
-            user.setId(u.getId());
-            user = em.merge(user);
+            realEstate.setId(r.getId());
+            realEstate = em.merge(realEstate);
             commitTx();
         } catch (Exception e) {
             rollbackTx();
         }
 
-        return user;
+        return realEstate;
     }
 
-    public boolean deleteUser(String userId) {
+    public boolean deleteRealEstate(String realEstateId) {
 
-        User user = em.find(User.class, userId);
+        RealEstate realEstate = em.find(RealEstate.class, realEstateId);
 
-        if (user != null) {
+        if (realEstate != null) {
             try {
                 beginTx();
-                em.remove(user);
+                em.remove(realEstate);
                 commitTx();
             } catch (Exception e) {
                 rollbackTx();

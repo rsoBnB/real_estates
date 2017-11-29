@@ -1,4 +1,4 @@
-package si.fri.rso.rsobnb.users.api;
+package si.fri.rso.rsobnb.real_estates.api;
 
 import com.kumuluz.ee.discovery.annotations.RegisterService;
 
@@ -7,5 +7,5 @@ import javax.ws.rs.core.Application;
 
 @ApplicationPath("/v1")
 @RegisterService
-public class UsersApplication extends Application {
+public class RealEstateApplication extends Application {
 }

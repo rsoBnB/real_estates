@@ -1,4 +1,4 @@
-package si.fri.rso.rsobnb.users.api.interceptors;
+package si.fri.rso.rsobnb.real_estates.api.interceptors;
 
 import com.kumuluz.ee.common.runtime.EeRuntime;
 import com.kumuluz.ee.configuration.utils.ConfigurationUtil;

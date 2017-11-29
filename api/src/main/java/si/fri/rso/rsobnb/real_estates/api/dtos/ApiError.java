@@ -1,4 +1,4 @@
-package si.fri.rso.rsobnb.users.api.dtos;
+package si.fri.rso.rsobnb.real_estates.api.dtos;
 
 public class ApiError {
 
