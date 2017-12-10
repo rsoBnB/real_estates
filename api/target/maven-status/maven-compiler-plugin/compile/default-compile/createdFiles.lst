@@ -1,6 +1,6 @@
 si/fri/rso/rsobnb/real_estates/api/producers/JacksonProducer.class
-si/fri/rso/rsobnb/real_estates/api/resources/RealEstatesResource.class
 si/fri/rso/rsobnb/real_estates/api/dtos/ApiError.class
+si/fri/rso/rsobnb/real_estates/api/resources/RealEstatesResource.class
 si/fri/rso/rsobnb/real_estates/api/exceptionmappers/NotFoundExceptionMapper.class
 si/fri/rso/rsobnb/real_estates/api/RealEstateApplication.class
 META-INF/services/javax.ws.rs.core.Application

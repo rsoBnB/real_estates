@@ -1,0 +1,3 @@
+INSERT INTO "real_estates" (id, user_id, name, size, rooms, location, day_price, parking, wifi, rating) VALUES ('1', '1', 'Vila1', '250', '4', 'Vecna pot 113', '150', '1', '1', '5');
+INSERT INTO "real_estates" (id, user_id, name, size, rooms, location, day_price, parking, wifi, rating) VALUES ('2', '2', 'Vila2', '444', '42', 'Vecna pot 118', '330', '1', '1', '7');
+INSERT INTO "real_estates" (id, user_id, name, size, rooms, location, day_price, parking, wifi, rating) VALUES ('3', '3', 'Vila3', '666', '41', 'Vecna pot 115', '140', '0', '0', '8');

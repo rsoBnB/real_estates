@@ -7,7 +7,8 @@ import javax.persistence.*;
 @Entity(name = "real_estates")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "RealEstates.getAll", query = "SELECT r FROM real_estates r")
+                @NamedQuery(name = "RealEstates.getAll", query = "SELECT r FROM real_estates r"),
+                @NamedQuery(name = "RealEstates.findByUser", query = "SELECT r FROM real_estates r WHERE r.userId = " + ":userId")
         })
 @UuidGenerator(name = "idGenerator")
 public class RealEstate {
@@ -18,6 +19,9 @@ public class RealEstate {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "user_id")
+    private String userId;
 
     @Column(name = "size")
     private Double size;
@@ -48,6 +52,10 @@ public class RealEstate {
     public void setId(String id) {
         this.id = id;
     }
+
+    public String getUserId() { return userId;}
+
+    public void setUserId(String userId) { this.userId = userId; }
 
     public String getName() {
         return name;
