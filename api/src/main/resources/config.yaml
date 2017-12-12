@@ -10,7 +10,7 @@ kumuluzee:
   datasources:
     - jndi-name: jdbc/RealEstatesDS
       connection-url: jdbc:postgresql://172.17.0.1:33334/real_estates
-      username: postgres
+      username: dbuser
       password: postgres
       max-pool-size: 20
   config:
