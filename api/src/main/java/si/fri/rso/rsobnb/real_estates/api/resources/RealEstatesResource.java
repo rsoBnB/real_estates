@@ -18,7 +18,7 @@ import java.util.List;
 @Path("/real_estates")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Log(LogParams.METRICS)
+@Log
 public class RealEstatesResource {
 
     @Inject
@@ -60,7 +60,7 @@ public class RealEstatesResource {
     }
 
     @POST
-    @Log(value = LogParams.METRICS, methodCall = false)
+    @Log
     public Response createRealEstate(RealEstate realEstate) {
 
         if ((realEstate.getName() == null || realEstate.getName().isEmpty()) || (realEstate.getLocation() == null
