@@ -5,7 +5,7 @@ metadata:
   labels:
     app: realestates
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
   - name: server
     port: 8081

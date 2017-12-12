@@ -100,6 +100,7 @@ public class RealEstatesBean {
     private void beginTx() {
         if (!em.getTransaction().isActive())
             em.getTransaction().begin();
+            em.getTransaction().begin();
     }
 
     private void commitTx() {

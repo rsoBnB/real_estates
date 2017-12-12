@@ -20,7 +20,7 @@ spec:
           - name: KUMULUZEE_CONFIG_ETCD_HOSTS
             value: http://etcd:2379
           - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-            value: jdbc:postgresql://postgres-realestates:5433/real_estates
+            value: jdbc:postgresql://postgres-realestates:5432/real_estates
           - name: KUMULUZEE_DATASOURCES0_USERNAME
             value: dbuser
           - name: KUMULUZEE_DATASOURCES0_PASSWORD

@@ -20,5 +20,5 @@ spec:
             - name: POSTGRESQL_DATABASE
               value: real_estates
           ports:
-          - containerPort: 5433
+          - containerPort: 5432
             protocol: TCP
