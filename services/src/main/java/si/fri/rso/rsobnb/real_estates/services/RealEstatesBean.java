@@ -2,21 +2,20 @@ package si.fri.rso.rsobnb.real_estates.services;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
-import com.kumuluz.ee.logs.LogManager;
-import com.kumuluz.ee.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
+import java.util.logging.Logger;
 
 import si.fri.rso.rsobnb.real_estates.RealEstate;
 
 @ApplicationScoped
 public class RealEstatesBean {
 
-    private Logger log = LogManager.getLogger(RealEstatesBean.class.getName());
+    private Logger log = Logger.getLogger(RealEstatesBean.class.getName());
 
     @Inject
     private EntityManager em;
