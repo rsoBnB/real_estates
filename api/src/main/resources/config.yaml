@@ -19,9 +19,17 @@ kumuluzee:
   discovery:
     etcd:
       hosts: http://172.17.0.1:2379
-cors-filter:
-    servlet:
-      allow-origin: "*"
+  cors-filter:
+      servlet:
+        allow-origin: "*"
+  metrics:
+        web-instrumentation:
+          - name: real_estates-endpoint
+            url-pattern: /v1/real_estates/*
+  health:
+      checks:
+        data-source-health-check:
+          jndi-name: jdbc/RealEstatesDS
   logs:
     config-file: '<?xml version="1.0" encoding="UTF-8"?>
                   <Configuration name="real_estates">
@@ -42,3 +50,5 @@ cors-filter:
                           </Root>
                       </Loggers>
                   </Configuration>'
+rest-properties:
+  healthy: true

@@ -3,7 +3,8 @@ package si.fri.rso.rsobnb.real_estates.api.resources;
 import com.kumuluz.ee.logs.cdi.Log;
 import si.fri.rso.rsobnb.real_estates.RealEstate;
 import si.fri.rso.rsobnb.real_estates.services.RealEstatesBean;
-
+import si.fri.rso.rsobnb.real_estates.api.configuration.RestProperties;
+import org.eclipse.microprofile.metrics.annotation.Metered;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -24,10 +25,14 @@ public class RealEstatesResource {
     @Inject
     private RealEstatesBean realEstatesBean;
 
+    @Inject
+    private RestProperties restProperties;
+
     @Context
     protected UriInfo uriInfo;
 
     @GET
+    @Metered
     public Response getRealEstates() {
 
         List<RealEstate> realEstates = realEstatesBean.getRealEstates(uriInfo);
@@ -104,5 +109,20 @@ public class RealEstatesResource {
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+    }
+
+
+    @POST
+    @Path("healthy")
+    public Response setHealth(Boolean healthy) {
+        restProperties.setHealthy(healthy);
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("healthy")
+    public Response getHealth() {
+        restProperties.isHealthy();
+        return Response.ok().entity(restProperties.isHealthy()).build();
     }
 }
