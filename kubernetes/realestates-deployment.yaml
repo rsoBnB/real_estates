@@ -11,6 +11,7 @@ spec:
     spec:
       containers:
       - image: ggrex/rsobnb-real_estates:0.1
+        imagePullPolicy: Always
         name: realestates
         env:
           - name: KUMULUZEE_DISCOVERY_CLUSTER
