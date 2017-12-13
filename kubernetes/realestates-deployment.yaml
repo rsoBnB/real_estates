@@ -10,7 +10,7 @@ spec:
         app: realestates
     spec:
       containers:
-      - image: ggrex/rsobnb-real_estates:0.1
+      - image: ggrex/rsobnb-real_estates:0.2
         imagePullPolicy: Always
         name: realestates
         env:
@@ -26,12 +26,6 @@ spec:
             value: dbuser
           - name: KUMULUZEE_DATASOURCES0_PASSWORD
             value: postgres
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: server
-          initialDelaySeconds: 20
-          periodSeconds: 3
         ports:
         - containerPort: 8081
           name: server
