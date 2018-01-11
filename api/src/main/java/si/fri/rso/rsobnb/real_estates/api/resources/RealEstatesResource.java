@@ -33,6 +33,7 @@ public class RealEstatesResource {
 
     @GET
     @Metered
+    @Log
     public Response getRealEstates() {
 
         List<RealEstate> realEstates = realEstatesBean.getRealEstates(uriInfo);
@@ -42,6 +43,7 @@ public class RealEstatesResource {
 
     @GET
     @Path("/filtered")
+    @Log
     public Response getRealEstatesFiltered() {
 
         List<RealEstate> realEstates;
@@ -53,6 +55,7 @@ public class RealEstatesResource {
 
     @GET
     @Path("/{realEstateId}")
+    @Log
     public Response getRealEstate(@PathParam("realEstateId") String realEstateId) {
 
         RealEstate realEstate = realEstatesBean.getRealEstate(realEstateId);
