@@ -3,6 +3,7 @@ package si.fri.rso.rsobnb.real_estates;
 import org.eclipse.persistence.annotations.UuidGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "real_estates")
 @NamedQueries(value =
@@ -44,6 +45,11 @@ public class RealEstate {
     @Column(name = "rating")
     private Integer rating;
 
+    @Transient
+    private List<Image> images;
+
+    @Transient
+    private List<Review> reviews;
 
     public String getId() {
         return id;
@@ -119,5 +125,21 @@ public class RealEstate {
 
     public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }

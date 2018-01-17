@@ -1,24 +1,65 @@
 package si.fri.rso.rsobnb.real_estates.services;
 
+import com.kumuluz.ee.discovery.annotations.DiscoverService;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
+
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.ProcessingException;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.UriInfo;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.Optional;
+import com.kumuluz.ee.logs.LogManager;
+import com.kumuluz.ee.logs.Logger;
 
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Timeout;
+import si.fri.rso.rsobnb.real_estates.Image;
 import si.fri.rso.rsobnb.real_estates.RealEstate;
+import si.fri.rso.rsobnb.real_estates.Review;
 
-@ApplicationScoped
+@RequestScoped
 public class RealEstatesBean {
 
-    private Logger log = Logger.getLogger(RealEstatesBean.class.getName());
+    private Logger log = LogManager.getLogger(RealEstatesBean.class.getName());
+
+    private Client httpClient;
+
+    @Context
+    protected UriInfo uriInfo;
 
     @Inject
     private EntityManager em;
+
+    @Inject
+    private RealEstatesBean realEstateBean;
+
+    @Inject
+    @DiscoverService("images")
+    private Optional<String> baseUrlImages;
+
+    @Inject
+    @DiscoverService("reviews")
+    private Optional<String> baseUrlReviews;
+
+    @PostConstruct
+    private void init() {
+        httpClient = ClientBuilder.newClient();
+    }
+
 
     public List<RealEstate> getRealEstates(UriInfo uriInfo) {
 
@@ -43,6 +84,12 @@ public class RealEstatesBean {
         if (realEstate == null) {
             throw new NotFoundException();
         }
+
+        List<Image> images = realEstateBean.getImages(realEstateId);
+        realEstate.setImages(images);
+
+        List<Review> reviews = realEstateBean.getReviews(realEstateId);
+        realEstate.setReviews(reviews);
 
         return realEstate;
     }
@@ -97,6 +144,93 @@ public class RealEstatesBean {
             return false;
 
         return true;
+    }
+
+    @CircuitBreaker(requestVolumeThreshold = 2)
+    @Fallback(fallbackMethod = "getImagesFallback")
+    @Timeout
+    public List<Image> getImages(String realEstateId) {
+
+        System.out.println("Base url: "+baseUrlImages);
+
+        if (baseUrlImages.isPresent()) {
+        //if (true) {
+            System.out.println("Base url: "+baseUrlImages);
+
+            try {
+                return httpClient
+                        .target(baseUrlImages.get() + "/v1/images?where=realEstateId:EQ:" + realEstateId)
+                        //.target("http://172.17.0.1:8085" + "/v1/images?where=realEstateId:EQ:" + realEstateId)
+                        .request().get(new GenericType<List<Image>>() {
+                        });
+            } catch (WebApplicationException | ProcessingException e) {
+                log.error(e);
+                System.out.println("Error: "+e);
+                throw new InternalServerErrorException(e);
+            }
+        }
+
+        return new ArrayList<>();
+    }
+
+    @CircuitBreaker(requestVolumeThreshold = 2)
+    @Fallback(fallbackMethod = "getReviewsFallback")
+    @Timeout
+    public List<Review> getReviews(String realEstateId) {
+
+        System.out.println("Base url: "+baseUrlReviews);
+
+        if (baseUrlReviews.isPresent()) {
+        //if (true) {
+            System.out.println("Base url: "+baseUrlReviews);
+
+            try {
+                return httpClient
+                        .target(baseUrlReviews.get() + "/v1/reviews?where=realEstateId:EQ:" + realEstateId)
+                        //.target("http://172.17.0.1:8083" + "/v1/reviews?where=realEstateId:EQ:" + realEstateId)
+                        .request().get(new GenericType<List<Review>>() {
+                        });
+            } catch (WebApplicationException | ProcessingException e) {
+                log.error(e);
+                System.out.println("Error: "+e);
+                throw new InternalServerErrorException(e);
+            }
+        }
+
+        return new ArrayList<>();
+    }
+
+    public List<Image> getImagesFallback(String realEstateId) {
+        System.out.println("Fallback called");
+
+        List<Image> images = new ArrayList<>();
+
+        Image image = new Image();
+
+        image.setDescription("N/A");
+        image.setId("N/A");
+        image.setPath("N/A");
+
+        images.add(image);
+
+        return images;
+    }
+
+    public List<Review> getReviewsFallback(String realEstateId) {
+        System.out.println("Fallback called");
+
+        List<Review> reviews = new ArrayList<>();
+
+        Review review = new Review();
+
+        review.setTitle("N/A");
+        review.setDescription("N/A");
+        review.setId("N/A");
+        review.setUserId("N/A");
+
+        reviews.add(review);
+
+        return reviews;
     }
 
     private void beginTx() {

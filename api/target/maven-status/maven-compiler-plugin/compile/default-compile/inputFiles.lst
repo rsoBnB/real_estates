@@ -1,6 +1,8 @@
+/Users/greg/rsobnb/real_estates/api/src/main/java/si/fri/rso/rsobnb/real_estates/api/configuration/RestProperties.java
 /Users/greg/rsobnb/real_estates/api/src/main/java/si/fri/rso/rsobnb/real_estates/api/RealEstateApplication.java
 /Users/greg/rsobnb/real_estates/api/src/main/java/si/fri/rso/rsobnb/real_estates/api/interceptors/LogContextInterceptor.java
 /Users/greg/rsobnb/real_estates/api/src/main/java/si/fri/rso/rsobnb/real_estates/api/exceptionmappers/NotFoundExceptionMapper.java
+/Users/greg/rsobnb/real_estates/api/src/main/java/si/fri/rso/rsobnb/real_estates/api/health/RealEstateServiceHealthCheck.java
 /Users/greg/rsobnb/real_estates/api/src/main/java/si/fri/rso/rsobnb/real_estates/api/producers/JacksonProducer.java
 /Users/greg/rsobnb/real_estates/api/src/main/java/si/fri/rso/rsobnb/real_estates/api/resources/RealEstatesResource.java
 /Users/greg/rsobnb/real_estates/api/src/main/java/si/fri/rso/rsobnb/real_estates/api/dtos/ApiError.java
