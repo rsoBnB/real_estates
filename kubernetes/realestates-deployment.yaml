@@ -10,7 +10,7 @@ spec:
         app: realestates
     spec:
       containers:
-      - image: ggrex/rsobnb-real_estates:0.2
+      - image: ggrex/rsobnb-real_estates:0.3
         imagePullPolicy: Always
         name: realestates
         env:
