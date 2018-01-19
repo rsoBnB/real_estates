@@ -51,6 +51,15 @@ public class RealEstate {
     @Transient
     private List<Review> reviews;
 
+    @Transient
+    private List<Payment> payments;
+
+    @Transient
+    private List<PropertyRental> property_rentals;
+
+    @Transient
+    private List<PropertyLease> property_leases;
+
     public String getId() {
         return id;
     }
@@ -141,5 +150,29 @@ public class RealEstate {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public List<PropertyRental> getProperty_rentals() {
+        return property_rentals;
+    }
+
+    public void setProperty_rentals(List<PropertyRental> property_rentals) {
+        this.property_rentals = property_rentals;
+    }
+
+    public List<PropertyLease> getProperty_leases() {
+        return property_leases;
+    }
+
+    public void setProperty_leases(List<PropertyLease> property_leases) {
+        this.property_leases = property_leases;
     }
 }

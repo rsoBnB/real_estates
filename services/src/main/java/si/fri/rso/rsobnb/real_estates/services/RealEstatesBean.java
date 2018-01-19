@@ -27,9 +27,7 @@ import com.kumuluz.ee.logs.Logger;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Timeout;
-import si.fri.rso.rsobnb.real_estates.Image;
-import si.fri.rso.rsobnb.real_estates.RealEstate;
-import si.fri.rso.rsobnb.real_estates.Review;
+import si.fri.rso.rsobnb.real_estates.*;
 
 @RequestScoped
 public class RealEstatesBean {
@@ -54,6 +52,20 @@ public class RealEstatesBean {
     @Inject
     @DiscoverService("reviews")
     private Optional<String> baseUrlReviews;
+
+    @Inject
+    @DiscoverService("property_rental")
+    private Optional<String> baseUrlPropertyRental;
+
+    @Inject
+    @DiscoverService("property_lease")
+    private Optional<String> baseUrlPropertyLease;
+
+    @Inject
+    @DiscoverService("payments")
+    private Optional<String> baseUrlPayments;
+
+
 
     @PostConstruct
     private void init() {
@@ -200,6 +212,84 @@ public class RealEstatesBean {
         return new ArrayList<>();
     }
 
+    @CircuitBreaker(requestVolumeThreshold = 2)
+    @Fallback(fallbackMethod = "getPropertyRentalFallback")
+    @Timeout
+    public List<PropertyRental> getPropertyRentals(String realEstateId) {
+
+        System.out.println("Base url: "+baseUrlImages);
+
+        if (baseUrlPropertyRental.isPresent()) {
+            //if (true) {
+            System.out.println("Base url: "+baseUrlPropertyRental);
+
+            try {
+                return httpClient
+                        .target(baseUrlPropertyRental.get() + "/v1/property_rental?where=realEstateId:EQ:" + realEstateId)
+                        .request().get(new GenericType<List<PropertyRental>>() {
+                        });
+            } catch (WebApplicationException | ProcessingException e) {
+                log.error(e);
+                System.out.println("Error: "+e);
+                throw new InternalServerErrorException(e);
+            }
+        }
+
+        return new ArrayList<>();
+    }
+
+    @CircuitBreaker(requestVolumeThreshold = 2)
+    @Fallback(fallbackMethod = "getPropertyLeaseFallback")
+    @Timeout
+    public List<PropertyLease> getPropertyLeases(String realEstateId) {
+
+        System.out.println("Base url: "+baseUrlPropertyLease);
+
+        if (baseUrlPropertyLease.isPresent()) {
+            //if (true) {
+            System.out.println("Base url: "+baseUrlPropertyLease);
+
+            try {
+                return httpClient
+                        .target(baseUrlPropertyLease.get() + "/v1/property_lease?where=realEstateId:EQ:" + realEstateId)
+                        .request().get(new GenericType<List<PropertyLease>>() {
+                        });
+            } catch (WebApplicationException | ProcessingException e) {
+                log.error(e);
+                System.out.println("Error: "+e);
+                throw new InternalServerErrorException(e);
+            }
+        }
+
+        return new ArrayList<>();
+    }
+
+    @CircuitBreaker(requestVolumeThreshold = 2)
+    @Fallback(fallbackMethod = "getPaymentFallback")
+    @Timeout
+    public List<Payment> getPayments(String realEstateId) {
+
+        System.out.println("Base url: "+baseUrlPayments);
+
+        if (baseUrlPayments.isPresent()) {
+            //if (true) {
+            System.out.println("Base url: "+baseUrlPayments);
+
+            try {
+                return httpClient
+                        .target(baseUrlPayments.get() + "/v1/payments?where=realEstateId:EQ:" + realEstateId)
+                        .request().get(new GenericType<List<Payment>>() {
+                        });
+            } catch (WebApplicationException | ProcessingException e) {
+                log.error(e);
+                System.out.println("Error: "+e);
+                throw new InternalServerErrorException(e);
+            }
+        }
+
+        return new ArrayList<>();
+    }
+
     public List<Image> getImagesFallback(String realEstateId) {
         System.out.println("Fallback called");
 
@@ -231,6 +321,59 @@ public class RealEstatesBean {
         reviews.add(review);
 
         return reviews;
+    }
+
+    public List<PropertyRental> getPropertyRentalsFallback(String realEstateId) {
+        System.out.println("Fallback called");
+
+        List<PropertyRental> property_rentals = new ArrayList<>();
+
+        PropertyRental property_rental = new PropertyRental();
+
+        property_rental.setId("N/A");
+        property_rental.setRealEstateId("N/A");
+        property_rental.setRenterId("N/A");
+        property_rental.setDuration(0);
+
+        property_rentals.add(property_rental);
+
+        return property_rentals;
+    }
+
+    public List<PropertyLease> getPropertyLeasesFallback(String realEstateId) {
+        System.out.println("Fallback called");
+
+        List<PropertyLease> property_leases = new ArrayList<>();
+
+        PropertyLease property_lease = new PropertyLease();
+
+        property_lease.setId("N/A");
+        property_lease.setRealEstateId("N/A");
+        property_lease.setRenterId("N/A");
+        property_lease.setLeaserId("N/A");
+        property_lease.setDuration(0);
+        property_lease.setAvailable(false);
+
+        property_leases.add(property_lease);
+
+        return property_leases;
+    }
+
+    public List<Payment> getPaymentsFallback(String realEstateId) {
+        System.out.println("Fallback called");
+
+        List<Payment> payments = new ArrayList<>();
+
+        Payment payment = new Payment();
+
+        payment.setId("N/A");
+        payment.setRealEstateId("N/A");
+        payment.setLeaseId("N/A");
+        payment.setAmount("N/A");
+
+        payments.add(payment);
+
+        return payments;
     }
 
     private void beginTx() {

@@ -18,14 +18,6 @@ public class Image {
         this.id = id;
     }
 
-    public String getRealEstateId() {
-        return realEstateId;
-    }
-
-    public void setRealEstateId(String realEstateId) {
-        this.realEstateId = realEstateId;
-    }
-
     public String getPath() {
         return path;
     }
