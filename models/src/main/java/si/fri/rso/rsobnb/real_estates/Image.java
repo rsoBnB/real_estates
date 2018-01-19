@@ -41,4 +41,12 @@ public class Image {
     public void setSubmitted(Date submitted) {
         this.submitted = submitted;
     }
+
+    public String getRealEstateId() {
+        return realEstateId;
+    }
+
+    public void setRealEstateId(String realEstateId) {
+        this.realEstateId = realEstateId;
+    }
 }

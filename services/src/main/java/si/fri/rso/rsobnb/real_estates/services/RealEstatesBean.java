@@ -103,6 +103,15 @@ public class RealEstatesBean {
         List<Review> reviews = realEstateBean.getReviews(realEstateId);
         realEstate.setReviews(reviews);
 
+        List<Payment> payments = realEstateBean.getPayments(realEstateId);
+        realEstate.setPayments(payments);
+
+        List<PropertyLease> property_leases = realEstateBean.getPropertyLeases(realEstateId);
+        realEstate.setProperty_leases(property_leases);
+
+        List<PropertyRental> property_rentals = realEstateBean.getPropertyRentals(realEstateId);
+        realEstate.setProperty_rentals(property_rentals);
+
         return realEstate;
     }
 
