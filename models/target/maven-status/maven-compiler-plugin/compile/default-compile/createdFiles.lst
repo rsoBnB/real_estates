@@ -1,3 +1,6 @@
 si/fri/rso/rsobnb/real_estates/Review.class
 si/fri/rso/rsobnb/real_estates/Image.class
+si/fri/rso/rsobnb/real_estates/Payment.class
 si/fri/rso/rsobnb/real_estates/RealEstate.class
+si/fri/rso/rsobnb/real_estates/PropertyLease.class
+si/fri/rso/rsobnb/real_estates/PropertyRental.class

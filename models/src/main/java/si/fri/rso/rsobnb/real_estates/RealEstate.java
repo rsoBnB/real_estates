@@ -4,6 +4,11 @@ import org.eclipse.persistence.annotations.UuidGenerator;
 
 import javax.persistence.*;
 import java.util.List;
+import si.fri.rso.rsobnb.real_estates.Payment;
+import si.fri.rso.rsobnb.real_estates.PropertyLease;
+import si.fri.rso.rsobnb.real_estates.PropertyRental;
+import si.fri.rso.rsobnb.real_estates.Image;
+import si.fri.rso.rsobnb.real_estates.Review;
 
 @Entity(name = "real_estates")
 @NamedQueries(value =
